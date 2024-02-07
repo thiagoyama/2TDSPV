@@ -1,0 +1,33 @@
+Encapsulamento: proteger o acesso dos atributos e métodos
+Modificador de acesso: private, default, protected, public
+protected: mesma classe, mesmo pacote e filhas
+default: mesma classe, mesmo pacote
+
+Tipos de Atributos:
+Tipos primitivos:
+byte, short, int, long, float, double, char, boolean
+Referencia: 
+String, LocalDate, Integer, Long, Float, Double, Boolean
+
+public class Produto {
+
+	int id;
+	String nome = "Churros";
+	double preco = 0;
+}
+
+JRE - Java Runtime Enviroment
+JVM - Java Virtual Machine
+
+JDK - Java Development Kit
+
+
+Churros.java -Compilacao-> Churros.class (bytecode)
+Churros.class -Interpretado JVM-> Execucação
+
+Herança: 
+Criar a classe "Calcado" com tamanho
+Criar os contrutores
+Criar os getters e setters
+
+ALT + INSERT : Gerar código 
