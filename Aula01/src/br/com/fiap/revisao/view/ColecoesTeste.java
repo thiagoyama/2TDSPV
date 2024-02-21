@@ -1,9 +1,6 @@
 package br.com.fiap.revisao.view;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class ColecoesTeste {
 
@@ -46,8 +43,18 @@ public class ColecoesTeste {
         }
 
         //Criar um Map de estados brasileiros: chave (sigla do estado), valor (nome do estado)
+        Map<String,String> brasil = new HashMap<>();
         //Adicionar 3 estados brasileiros
+        brasil.put("SP", "São Paulo");
+        brasil.put("SC", "Santa Catarina");
+        brasil.put("MT", "Mato Grosso");
+        //Exibir o nome do estado da chave MT
+        System.out.println(brasil.get("MT"));
         //Exibir a sigla e o nome de todos os estados armazenados no map
+        Set<String> chaves = brasil.keySet(); //retorna as chaves do mapa
+        for (String chave : chaves){
+            System.out.println(chave + " - " + brasil.get(chave));
+        }
 
     }
 }
