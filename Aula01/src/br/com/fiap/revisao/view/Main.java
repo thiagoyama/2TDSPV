@@ -2,6 +2,7 @@ package br.com.fiap.revisao.view;
 
 import br.com.fiap.revisao.model.Calcado;
 import br.com.fiap.revisao.model.Produto;
+import br.com.fiap.revisao.model.TipoCalcado;
 
 public class Main {
     public static void main(String[] args) {
@@ -18,6 +19,15 @@ public class Main {
         novoValor = tenis.calcularDesconto("CALCADO40");
         //Exibir o valor com desconto
         System.out.println("Calçado com desconto: " + novoValor);
+
+        //Atribuir um valor para o tipo do calcado
+        tenis.setTipo(TipoCalcado.TENIS);
+
+        //Validar se o calcado é do tipo TENIS
+        if (tenis.getTipo() == TipoCalcado.TENIS)
+            System.out.println("É um tenis");
+        else
+            System.out.println("Não é um tenis");
 
         //Operador ternário
         //condicao ? se verdadeiro : se falso;

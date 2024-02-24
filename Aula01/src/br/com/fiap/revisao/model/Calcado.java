@@ -4,6 +4,8 @@ public class Calcado extends Produto {
 
     private Float tamanho;
 
+    private TipoCalcado tipo;
+
     public Calcado() {}
 
     public Calcado(Long id, Double preco, String nome,
@@ -29,5 +31,13 @@ public class Calcado extends Produto {
 
     public void setTamanho(Float tamanho) {
         this.tamanho = tamanho;
+    }
+
+    public TipoCalcado getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(TipoCalcado tipo) {
+        this.tipo = tipo;
     }
 }
