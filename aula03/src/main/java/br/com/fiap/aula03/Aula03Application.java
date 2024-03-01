@@ -12,16 +12,6 @@ public class Aula03Application {
 
 		SpringApplication.run(Aula03Application.class, args);
 
-		//Instanciar um Investimento
-		Investimento inv = new Investimento("Selic",
-				CategoriaInvestimento.TESOURO_DIRETO, 100.0);
-
-		//Setar o valor do investimento
-		inv.setValor(1000.0);
-
-		//Exibir o valor do investimento
-		System.out.println(inv.getValor());
-
 	}
 
 }
