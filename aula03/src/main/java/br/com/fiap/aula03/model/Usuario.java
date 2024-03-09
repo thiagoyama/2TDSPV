@@ -1,6 +1,5 @@
 package br.com.fiap.aula03.model;
 
-import br.com.fiap.aula03.dto.CadastroInvestimentoDto;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -9,24 +8,19 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
+
 @Getter @Setter
 @AllArgsConstructor @NoArgsConstructor
 @Entity
-public class Investimento {
+public class Usuario {
 
     @Id
     @GeneratedValue
     private Long id;
-
     private String nome;
+    private String email;
+    private String telefone;
+    private LocalDate dataCadastro;
 
-    private CategoriaInvestimento categoria;
-
-    private Double valor;
-
-    public Investimento(CadastroInvestimentoDto investimentoDto) {
-        nome = investimentoDto.nome();
-        categoria = investimentoDto.categoria();
-        valor = investimentoDto.valor();
-    }
 }
