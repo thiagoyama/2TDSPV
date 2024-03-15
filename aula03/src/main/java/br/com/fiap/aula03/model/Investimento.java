@@ -1,5 +1,6 @@
 package br.com.fiap.aula03.model;
 
+import br.com.fiap.aula03.dto.AtualizacaoInvestimentoDto;
 import br.com.fiap.aula03.dto.CadastroInvestimentoDto;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -28,5 +29,12 @@ public class Investimento {
         nome = investimentoDto.nome();
         categoria = investimentoDto.categoria();
         valor = investimentoDto.valor();
+    }
+
+    public void atualizarInformacoes(AtualizacaoInvestimentoDto dto) {
+        if (dto.nome() != null)
+            nome = dto.nome();
+        if (dto.categoria() != null)
+            categoria = dto.categoria();
     }
 }
