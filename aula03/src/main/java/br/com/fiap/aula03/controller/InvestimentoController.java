@@ -23,6 +23,13 @@ public class InvestimentoController {
     @Autowired //Injeção de dependencia, quando o controller for instanciado o repository tb será
     private InvestimentoRepository investimentoRepository;
 
+    @DeleteMapping("{id}")
+    @Transactional
+    public ResponseEntity<Void> delete(@PathVariable("id")Long id){
+        investimentoRepository.deleteById(id);
+        return ResponseEntity.noContent().build();
+    }
+
     @PutMapping("{id}")
     @Transactional
     public ResponseEntity<DetalhesInvestimentoDto> put(@PathVariable("id")Long id,
@@ -40,7 +47,8 @@ public class InvestimentoController {
 
     @GetMapping
     public ResponseEntity<List<ListagemInvestimentoDto>> get(Pageable pageable){
-        var listaDto = investimentoRepository.findAll(pageable).stream().map(ListagemInvestimentoDto::new).toList();
+        var listaDto = investimentoRepository.findAll(pageable)
+                .stream().map(ListagemInvestimentoDto::new).toList();
         return ResponseEntity.ok(listaDto);
     }
 
@@ -54,5 +62,7 @@ public class InvestimentoController {
         var uri = uriBuilder.path("/investimentos/{id}").buildAndExpand(investimento.getId()).toUri();
         return ResponseEntity.created(uri).body(new DetalhesInvestimentoDto(investimento));
     }
+
+
 
 }
