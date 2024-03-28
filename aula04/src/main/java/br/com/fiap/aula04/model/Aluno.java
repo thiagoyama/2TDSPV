@@ -1,5 +1,6 @@
 package br.com.fiap.aula04.model;
 
+import br.com.fiap.aula04.dto.aluno.CadastroAlunoDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -40,10 +41,17 @@ public class Aluno {
     @Enumerated(EnumType.STRING) //Grava o texto da constante no banco
     private NivelEscolaridade nivelEscolaridade;
 
-    @Column(name="vl_renda", precision = 7, scale = 2)
+    @Column(name="vl_renda", precision = 7)
     private Double renda; //BigDecimal
 
     @Transient //Não será uma coluna no banco
     private Integer idade;
 
+    public Aluno(CadastroAlunoDto alunoDto) {
+        nome = alunoDto.nome();
+        cpf = alunoDto.cpf();
+        dataNascimento = alunoDto.dataNascimento();
+        nivelEscolaridade = alunoDto.nivelEscolaridade();
+        renda = alunoDto.renda();
+    }
 }
