@@ -27,4 +27,8 @@ public class Carteirinha {
     @Column(name="st_ativo",nullable = false)
     private Boolean ativo;
 
+    //Relacionamento 1:1
+    @OneToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name="nr_rm", nullable = false)
+    private Aluno aluno;
 }

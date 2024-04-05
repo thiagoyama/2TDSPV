@@ -47,6 +47,13 @@ public class Aluno {
     @Transient //Não será uma coluna no banco
     private Integer idade;
 
+    //Relacionamento 1:1 Bidirecional
+    //mappedBy - Nome do atributo que mapeia a FK no banco
+    //cascade - Ações (cadastro, atualização e/ou remoção) que serão realizadas na relação
+    //fetch - Define se a relação será ou não recuperada na pesquisa
+    @OneToOne(mappedBy = "aluno", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Carteirinha carteirinha;
+
     public Aluno(CadastroAlunoDto alunoDto) {
         nome = alunoDto.nome();
         cpf = alunoDto.cpf();

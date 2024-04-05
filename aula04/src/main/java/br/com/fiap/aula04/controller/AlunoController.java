@@ -4,6 +4,7 @@ import br.com.fiap.aula04.dto.aluno.CadastroAlunoDto;
 import br.com.fiap.aula04.dto.aluno.DetalhesAlunoDto;
 import br.com.fiap.aula04.model.Aluno;
 import br.com.fiap.aula04.repository.AlunoRepository;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,7 +23,7 @@ public class AlunoController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity<DetalhesAlunoDto> post(@RequestBody CadastroAlunoDto alunoDto,
+    public ResponseEntity<DetalhesAlunoDto> post(@RequestBody @Valid CadastroAlunoDto alunoDto,
                                                  UriComponentsBuilder uriBuilder){
         var aluno = new Aluno(alunoDto);
         alunoRepository.save(aluno);
