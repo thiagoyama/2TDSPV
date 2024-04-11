@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 @Getter @Setter
 @NoArgsConstructor
@@ -28,5 +29,11 @@ public class Professor {
 
     @Column(name = "vl_salario", precision = 9, scale = 2)
     private BigDecimal salario;
+
+    @ManyToMany
+    @JoinTable(name = "TB_TURMA_PROFESSOR",
+            joinColumns = @JoinColumn(name = "cd_professor"),
+            inverseJoinColumns = @JoinColumn(name="cd_turma"))
+    private List<Turma> turmas;
 
 }
