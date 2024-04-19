@@ -1,5 +1,7 @@
 package br.com.fiap.aula04.exercicio.model;
 
+import br.com.fiap.aula04.exercicio.dto.post.CadastroPostDto;
+import br.com.fiap.aula04.exercicio.dto.post.DetalhesPostDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -36,5 +38,9 @@ public class DetalhesPost {
     @Column(name = "dt_publicacao", nullable = false)
     private LocalDateTime dataPublicacao;
 
+    public DetalhesPost(CadastroPostDto dto){
+        autor = dto.autor();
+        dataPublicacao = dto.dataPublicacao();
+    }
 
 }

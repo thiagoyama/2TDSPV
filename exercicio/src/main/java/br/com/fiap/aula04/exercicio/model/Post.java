@@ -1,5 +1,6 @@
 package br.com.fiap.aula04.exercicio.model;
 
+import br.com.fiap.aula04.exercicio.dto.post.CadastroPostDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,12 +22,11 @@ public class Post {
     @ManyToMany(mappedBy = "posts")
     private List<Tag> tags;
 
-    @OneToOne(mappedBy = "post")
+    @OneToOne(mappedBy = "post", cascade = CascadeType.ALL)
     private DetalhesPost detalhes;
 
     @OneToMany(mappedBy = "post")
     private List<Comentario> comentarios;
-
 
     @Column(name="ds_titulo", nullable = false, length = 50)
     private String titulo;
@@ -34,4 +34,10 @@ public class Post {
     @Column(name="ds_conteudo", nullable = false, length = 500)
     private String conteudo;
 
+    public Post(CadastroPostDto dto) {
+        titulo = dto.titulo();
+        conteudo = dto.conteudo();
+        detalhes = new DetalhesPost(dto);
+        detalhes.setPost(this); //Setando a FK do banco
+    }
 }
