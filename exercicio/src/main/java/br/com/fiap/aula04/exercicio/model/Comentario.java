@@ -1,5 +1,6 @@
 package br.com.fiap.aula04.exercicio.model;
 
+import br.com.fiap.aula04.exercicio.dto.comentario.CadastroComentarioDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -36,4 +37,9 @@ public class Comentario {
     @Column(name="nm_autor", length = 50)
     private String autor;
 
+    public Comentario(CadastroComentarioDto dto, Post post) {
+        conteudo = dto.conteudo();
+        autor = dto.autor();
+        this.post = post;
+    }
 }
