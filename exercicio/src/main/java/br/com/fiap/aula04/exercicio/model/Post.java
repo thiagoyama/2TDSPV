@@ -7,7 +7,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Getter @Setter
 @NoArgsConstructor
@@ -21,12 +23,12 @@ public class Post {
     private Long id;
 
     @ManyToMany(mappedBy = "posts")
-    private List<Tag> tags;
+    private Set<Tag> tags = new HashSet<>();
 
     @OneToOne(mappedBy = "post", cascade = CascadeType.ALL)
     private DetalhesPost detalhes;
 
-    @OneToMany(mappedBy = "post")
+    @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
     private List<Comentario> comentarios;
 
     @Column(name="ds_titulo", nullable = false, length = 50)
