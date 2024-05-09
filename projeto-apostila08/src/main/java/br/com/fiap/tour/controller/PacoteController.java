@@ -15,6 +15,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/pacotes")
 public class PacoteController {
@@ -24,6 +26,17 @@ public class PacoteController {
 
     @Autowired
     private DestinoRepository destinoRepository;
+
+    //http://localhost:8080/pacotes/por-preco?max=1000&min=500
+    @GetMapping("por-preco")
+    public ResponseEntity<Page<DetalhesPacoteDTO>> get(
+            @RequestParam("max") Double maximo,
+            @RequestParam("min") Double minimo, Pageable pageable){
+        Page<DetalhesPacoteDTO> pacotes = pacoteRepository
+                .buscarPorPreco(minimo, maximo, pageable)
+                .map(DetalhesPacoteDTO::new);
+        return ResponseEntity.ok(pacotes);
+    }
 
     @PostMapping
     @Transactional
