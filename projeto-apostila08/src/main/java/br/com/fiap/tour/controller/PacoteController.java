@@ -27,6 +27,12 @@ public class PacoteController {
     @Autowired
     private DestinoRepository destinoRepository;
 
+    @GetMapping("por-destino")
+    public ResponseEntity<Page<DetalhesPacoteDTO>> getByIdDestino(@RequestParam("id-destino") Long id, Pageable pageable){
+        var page = pacoteRepository.buscarPorDestino(id, pageable).map(DetalhesPacoteDTO::new);
+        return ResponseEntity.ok(page);
+    }
+
     //http://localhost:8080/pacotes/por-preco?max=1000&min=500
     @GetMapping("por-preco")
     public ResponseEntity<Page<DetalhesPacoteDTO>> get(

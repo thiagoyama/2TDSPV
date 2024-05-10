@@ -29,6 +29,12 @@ public class ClienteController {
     @Autowired
     private CidadeRepository cidadeRepository;
 
+    @GetMapping("por-nome")
+    public ResponseEntity<Page<DetalhesClienteDTO>> get(@RequestParam("nome") String nome, Pageable pageable){
+        var page = clienteRepository.buscarPorNome(nome, pageable).map(DetalhesClienteDTO::new);
+        return ResponseEntity.ok(page);
+    }
+
     @PostMapping
     @Transactional
     public ResponseEntity<DetalhesClienteDTO> cadastrar(@RequestBody @Valid CadastroClienteDTO dto, UriComponentsBuilder builder) {
