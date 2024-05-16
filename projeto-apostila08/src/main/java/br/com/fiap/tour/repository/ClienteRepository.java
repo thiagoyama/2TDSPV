@@ -9,8 +9,16 @@ import org.springframework.data.repository.query.Param;
 
 public interface ClienteRepository extends JpaRepository<Cliente, Long> {
 
+    //Obter todos os cliente que possuem reserva com um pacote com valor maior
+    @Query("select r.cliente from Reserva r where r.pacote.valor > :valor")
+    Page<Cliente> buscarPorValorPacote(Double valor, Pageable pageable);
+
     //Obter todos os clientes por parte do nome.
     @Query("from Cliente c where c.nome like %:nome%")
     Page<Cliente> buscarPorNome(String nome, Pageable pageable);
+
+    //Obter todos os clientes de um estado
+    @Query("from Cliente c where c.endereco.cidade.uf = :estado")
+    Page<Cliente> buscarPorEstado(String estado, Pageable pageable);
 
 }

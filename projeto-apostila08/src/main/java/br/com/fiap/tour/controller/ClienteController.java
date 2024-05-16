@@ -29,6 +29,18 @@ public class ClienteController {
     @Autowired
     private CidadeRepository cidadeRepository;
 
+    @GetMapping("por-valor-pacote")
+    public ResponseEntity<Page<DetalhesClienteDTO>> getPorValorPacote(@RequestParam("valor") Double valor, Pageable pageable){
+        var page = clienteRepository.buscarPorValorPacote(valor, pageable).map(DetalhesClienteDTO::new);
+        return ResponseEntity.ok(page);
+    }
+
+    @GetMapping("por-estado")
+    public ResponseEntity<Page<DetalhesClienteDTO>> getEstado(@RequestParam("estado") String estado, Pageable pageable){
+        var page = clienteRepository.buscarPorEstado(estado, pageable).map(DetalhesClienteDTO::new);
+        return ResponseEntity.ok(page);
+    }
+
     @GetMapping("por-nome")
     public ResponseEntity<Page<DetalhesClienteDTO>> get(@RequestParam("nome") String nome, Pageable pageable){
         var page = clienteRepository.buscarPorNome(nome, pageable).map(DetalhesClienteDTO::new);
