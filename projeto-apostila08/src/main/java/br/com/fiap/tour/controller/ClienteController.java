@@ -19,6 +19,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/clientes")
 public class ClienteController {
@@ -28,6 +30,19 @@ public class ClienteController {
 
     @Autowired
     private CidadeRepository cidadeRepository;
+
+    @GetMapping("por-estados")
+    public ResponseEntity<Page<DetalhesClienteDTO>> getEstados(@RequestParam("estados") List<String> estados, Pageable pageable){
+        var page = clienteRepository.buscarPorEstados(estados, pageable).map(DetalhesClienteDTO::new);
+        return ResponseEntity.ok(page);
+    }
+
+    @GetMapping("por-nome-cidade")
+    public ResponseEntity<Page<DetalhesClienteDTO>> getNomeCidade(@RequestParam("nome") String nome,
+                                                                  @RequestParam("cidade") String cidade, Pageable pageable){
+        var page = clienteRepository.buscarPorNomeECidade(nome, cidade, pageable).map(DetalhesClienteDTO::new);
+        return ResponseEntity.ok(page);
+    }
 
     @GetMapping("por-valor-pacote")
     public ResponseEntity<Page<DetalhesClienteDTO>> getPorValorPacote(@RequestParam("valor") Double valor, Pageable pageable){

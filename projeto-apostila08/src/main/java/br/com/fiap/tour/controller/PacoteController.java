@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -26,6 +27,20 @@ public class PacoteController {
 
     @Autowired
     private DestinoRepository destinoRepository;
+
+    @GetMapping("por-valor-menor")
+    public ResponseEntity<Page<DetalhesPacoteDTO>> get(@RequestParam("valor")Float valor, Pageable pageable){
+        var pacotes = pacoteRepository.findByValorLessThan(valor, pageable).map(DetalhesPacoteDTO::new);
+        return ResponseEntity.ok(pacotes);
+    }
+
+    @GetMapping("por-data-saida")
+    public ResponseEntity<Page<DetalhesPacoteDTO>> get(@RequestParam("data-inicio")LocalDate dataInicio,
+                                                       @RequestParam("data-fim") LocalDate dataFim,
+                                                       Pageable pageable){
+        var lista = pacoteRepository.buscarPorDatas(dataInicio,dataFim,pageable).map(DetalhesPacoteDTO::new);
+        return ResponseEntity.ok(lista);
+    }
 
     @GetMapping("por-destino")
     public ResponseEntity<Page<DetalhesPacoteDTO>> getByIdDestino(@RequestParam("id-destino") Long id, Pageable pageable){

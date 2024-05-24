@@ -21,6 +21,12 @@ public class DestinoController {
     @Autowired
     private DestinoRepository destinoRepository;
 
+    @GetMapping("por-nome")
+    public ResponseEntity<Page<DetalhesDestinoDTO>> get(@RequestParam("nome") String nome, Pageable pageable){
+        var destinos = destinoRepository.findByNomeContainingIgnoreCase(nome, pageable).map(DetalhesDestinoDTO::new);
+        return ResponseEntity.ok(destinos);
+    }
+
     @PostMapping
     @Transactional
     public ResponseEntity<DetalhesDestinoDTO> cadastrar(@RequestBody @Valid CadastroDestinoDTO dto, UriComponentsBuilder builder) {
