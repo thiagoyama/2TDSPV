@@ -10,6 +10,15 @@ import br.com.fiap.aula04.exercicio.model.Post;
 import br.com.fiap.aula04.exercicio.repository.ComentarioRepository;
 import br.com.fiap.aula04.exercicio.repository.PostRepository;
 import br.com.fiap.aula04.exercicio.repository.TagRepository;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.Parameters;
+import io.swagger.v3.oas.annotations.enums.ParameterIn;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -22,6 +31,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("posts")
+@Tag(name = "Posts do Blog", description = "Operações para manipular os Posts do FIAP Blog")
 public class PostController {
 
     @Autowired
@@ -35,6 +45,15 @@ public class PostController {
 
     @PutMapping("{idPost}/tags/{idTag}")
     @Transactional
+    @Operation(summary = "Adiciona uma Tag no Post", description = "Adiciona uma tag existente ao um post")
+    @ApiResponses(
+            { @ApiResponse(responseCode = "200", description = "Tag adicionada com sucesso",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = DetalhesPostDto.class))) }
+    )
+    @Parameters({
+            @Parameter(name = "idPost", description = "Id do Post que terá a tag adicionada", required = true, in = ParameterIn.PATH),
+            @Parameter(name = "idTag", description = "Id da Tag que será adicionada ao Post", required = true, in = ParameterIn.PATH)
+    })
     public ResponseEntity<DetalhesPostDto> put(@PathVariable("idPost") Long idPost, @PathVariable("idTag") Long idTag){
         var post = postRepository.getReferenceById(idPost);
         var tag = tagRepository.getReferenceById(idTag);
@@ -44,6 +63,9 @@ public class PostController {
 
     @PostMapping("{id}/comentarios")
     @Transactional
+    @Parameters({
+            @Parameter(name = "id", description = "Id do Post que terá o comentário cadastrado", required = true)
+    })
     public ResponseEntity<DetalhesComentarioDto> post(@PathVariable("id") Long id,
                                                       @RequestBody @Valid CadastroComentarioDto dto,
                                                       UriComponentsBuilder uriBuilder){
@@ -84,6 +106,12 @@ public class PostController {
 
     @PostMapping
     @Transactional
+    @Operation(summary = "Cadastra um Post", description = "Cadastra um Post")
+    @ApiResponses({
+                    @ApiResponse(responseCode = "201", description = "Post cadastrado com sucesso",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = DetalhesPostDto.class))),
+                    @ApiResponse(responseCode = "400", description = "Dados inválidos")}
+    )
     public ResponseEntity<DetalhesPostDto> create(@RequestBody @Valid CadastroPostDto dto,
                                                   UriComponentsBuilder builder){
         var post = new Post(dto);

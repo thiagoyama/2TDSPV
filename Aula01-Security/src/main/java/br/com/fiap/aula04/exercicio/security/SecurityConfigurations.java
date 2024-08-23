@@ -28,7 +28,7 @@ public class SecurityConfigurations {
         return new BCryptPasswordEncoder();
     }
 
-//  private final String[] rotas = new String[]{"/posts", "/login"};
+    private static final String[] SWAGGER_WHITELIS = { "/swagger-ui/**", "/v3/api-docs/**"};
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -37,7 +37,7 @@ public class SecurityConfigurations {
                 .authorizeHttpRequests(req -> {
                     req.requestMatchers(HttpMethod.POST, "/login").permitAll();
                     req.requestMatchers(HttpMethod.POST, "/auth/register").permitAll();
-                    //req.requestMatchers(rotas).permitAll();
+                    req.requestMatchers(SWAGGER_WHITELIS).permitAll();
                     req.anyRequest().authenticated();
                 })
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
