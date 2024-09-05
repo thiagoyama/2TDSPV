@@ -10,6 +10,7 @@ import br.com.fiap.aula04.exercicio.model.Post;
 import br.com.fiap.aula04.exercicio.repository.ComentarioRepository;
 import br.com.fiap.aula04.exercicio.repository.PostRepository;
 import br.com.fiap.aula04.exercicio.repository.TagRepository;
+import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
@@ -63,6 +64,12 @@ public class PostController {
 
     @PostMapping("{id}/comentarios")
     @Transactional
+    @Operation(description = "Cadastra um comentário no post", summary = "Cadastro de comentário")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Comentário cadastrado",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = DetalhesComentarioDto.class)))
+    })
     @Parameters({
             @Parameter(name = "id", description = "Id do Post que terá o comentário cadastrado", required = true)
     })
@@ -84,6 +91,7 @@ public class PostController {
 
     @DeleteMapping("{id}")
     @Transactional
+    @Hidden
     public ResponseEntity<Void> delete(@PathVariable("id") Long id){
         postRepository.deleteById(id);
         return ResponseEntity.noContent().build();
