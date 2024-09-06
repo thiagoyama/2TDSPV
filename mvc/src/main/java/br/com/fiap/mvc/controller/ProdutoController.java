@@ -1,6 +1,7 @@
 package br.com.fiap.mvc.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,9 +15,12 @@ public class ProdutoController {
         return "produto/cadastro";
     }
 
-    @PostMapping("cadastrar")
-    public String churros(String nome, Double valor){
+        @PostMapping("cadastrar")
+    public String churros(String nome, Double valor, Model model){
         System.out.println(nome + " " + valor);
+        model.addAttribute("churros", nome);
+        model.addAttribute("mensagem", "Produto cadastrado!");
+        model.addAttribute("valor", valor);
         return "produto/cadastro";
     }
 
