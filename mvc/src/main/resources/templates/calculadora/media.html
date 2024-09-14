@@ -7,30 +7,30 @@
     <title>Calculadora</title>
 </head>
 <body>
-<div layout:fragment="conteudo">
+<div layout:fragment="conteudo" class="container">
     <h1>Calculadora de Média - FIAP</h1>
 
-    <p>A média final é <span th:text="${mediaFinal}"></span></p>
+    <p th:if="!${#strings.isEmpty(mediaFinal)}">A média final é <span th:text="${mediaFinal}"></span></p>
 
     <form action="/calculadora/media" method="post">
-        <div>
-            <label>Média Primeiro Semestre</label>
-            <input type="number" name="media"/>
+        <div class="mb-3">
+            <label class="form-label">Média Primeiro Semestre</label>
+            <input type="number" name="media" class="form-control"/>
         </div>
 
-        <div>
-            <label>Média Checkpoint</label>
-            <input type="number" name="cp"/>
+        <div class="mb-3">
+            <label class="form-label">Média Checkpoint</label>
+            <input type="number" name="cp" class="form-control"/>
         </div>
-        <div>
-            <label>Nota Challenge</label>
-            <input type="number" name="challenge"/>
+        <div class="mb-3">
+            <label class="form-label">Nota Challenge</label>
+            <input type="number" name="challenge" class="form-control"/>
         </div>
-        <div>
-            <label>Nota GS</label>
-            <input type="number" name="gs"/>
+        <div class="mb-3">
+            <label class="form-label">Nota GS</label>
+            <input type="number" name="gs" class="form-control"/>
         </div>
-        <button type="submit">Passei de ano?</button>
+        <button type="submit" class="btn btn-primary">Passei de ano?</button>
     </form>
 </div>
 </body>
