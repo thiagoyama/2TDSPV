@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -28,6 +29,18 @@ public class ProdutoController {
         produtoRepository.save(produto);
         model.addAttribute("mensagem", "Produto cadastrado!");
         return "produto/cadastro";
+    }
+
+    @GetMapping("listar")
+    public String listarProdutos(Model model) {
+        model.addAttribute("produtos", produtoRepository.findAll());
+        return "produto/listar";
+    }
+
+    @GetMapping("editar/{id}")
+    public String editar(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("produto", produtoRepository.findById(id));
+        return "produto/editar";
     }
 
 }
