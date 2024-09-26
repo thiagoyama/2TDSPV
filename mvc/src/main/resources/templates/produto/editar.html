@@ -9,8 +9,8 @@
 <body>
 <div layout:fragment="conteudo">
     <h1>Editar produto:</h1>
-    <form th:action="@{/produto/cadastrar}" th:object="${produto}" method="post">
-
+    <form th:action="@{/produto/editar}" th:object="${produto}" method="post">
+        <input th:field="*{id}" type="hidden"/>
         <div class="mb-3">
             <label class="form-label">Nome</label>
             <input class="form-control" th:field="*{nome}" type="text" id="nome" placeholder="Informe o nome do Produto">
@@ -28,7 +28,7 @@
 
         <div class="mb-3">
             <label class="form-label">Data de Fabricação</label>
-            <input class="form-control" th:field="*{dataDeFabricacao}" type="text" id="dataDeFabricacao" placeholder="Informe a data de fabricação do Produto">
+            <input class="form-control" th:field="*{dataFabricacao}" type="text" id="dataDeFabricacao" placeholder="Informe a data de fabricação do Produto">
         </div>
 
         <div class="mb-3">

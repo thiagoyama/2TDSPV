@@ -43,4 +43,12 @@ public class ProdutoController {
         return "produto/editar";
     }
 
+    @PostMapping("editar")
+    public String editar(Produto produto, Model model){
+        produtoRepository.save(produto);
+        model.addAttribute("mensagem", "Produto atualizado");
+        model.addAttribute("produtos", produtoRepository.findAll());
+        return "produto/listar";
+    }
+
 }

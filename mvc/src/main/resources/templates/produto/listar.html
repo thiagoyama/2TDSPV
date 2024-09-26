@@ -10,6 +10,9 @@
 <body>
     <div layout:fragment="conteudo">
         <h1>Lista de Produtos</h1>
+        <div class="alert alert-success"
+             th:if="!${#strings.isEmpty(mensagem)}" th:text="${mensagem}">
+        </div>
         <table class="table">
             <tr>
                 <th>Nome</th>
