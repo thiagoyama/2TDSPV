@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("produto")
@@ -18,6 +19,14 @@ public class ProdutoController {
     @Autowired
     private ProdutoRepository produtoRepository;
 
+    @PostMapping("remover")
+    @Transactional
+    public String remover(Long codigo, RedirectAttributes redirectAttributes) {
+        produtoRepository.deleteById(codigo);
+        redirectAttributes.addFlashAttribute("mensagem", "Produto removido");
+        return "redirect:/produto/listar";
+    }
+
     @GetMapping("cadastrar")
     public String cadastrar(Produto produto){
         return "produto/cadastro";
@@ -25,10 +34,10 @@ public class ProdutoController {
 
     @PostMapping("cadastrar")
     @Transactional
-    public String churros(Produto produto, Model model){
+    public String churros(Produto produto, RedirectAttributes redirectAttributes){
         produtoRepository.save(produto);
-        model.addAttribute("mensagem", "Produto cadastrado!");
-        return "produto/cadastro";
+        redirectAttributes.addFlashAttribute("mensagem", "Produto cadastrado!");
+        return "redirect:/produto/cadastrar";
     }
 
     @GetMapping("listar")
@@ -44,11 +53,10 @@ public class ProdutoController {
     }
 
     @PostMapping("editar")
-    public String editar(Produto produto, Model model){
+    public String editar(Produto produto, RedirectAttributes redirectAttributes){
         produtoRepository.save(produto);
-        model.addAttribute("mensagem", "Produto atualizado");
-        model.addAttribute("produtos", produtoRepository.findAll());
-        return "produto/listar";
+        redirectAttributes.addFlashAttribute("mensagem", "Produto atualizado");
+        return "redirect:/produto/listar";
     }
 
 }
