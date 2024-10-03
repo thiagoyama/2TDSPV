@@ -23,4 +23,6 @@ public class Produto {
     private LocalDate dataFabricacao;
     @Column(name="st_novo")
     private Boolean novo;
+    @Column(name="st_produto")
+    private StatusProduto status;
 }

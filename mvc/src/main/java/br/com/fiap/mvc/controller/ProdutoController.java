@@ -1,6 +1,7 @@
 package br.com.fiap.mvc.controller;
 
 import br.com.fiap.mvc.model.Produto;
+import br.com.fiap.mvc.model.StatusProduto;
 import br.com.fiap.mvc.repository.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,7 +29,8 @@ public class ProdutoController {
     }
 
     @GetMapping("cadastrar")
-    public String cadastrar(Produto produto){
+    public String cadastrar(Produto produto, Model model){
+        model.addAttribute("status", StatusProduto.values());
         return "produto/cadastro";
     }
 
@@ -49,6 +51,7 @@ public class ProdutoController {
     @GetMapping("editar/{id}")
     public String editar(@PathVariable("id") Long id, Model model) {
         model.addAttribute("produto", produtoRepository.findById(id));
+        model.addAttribute("status", StatusProduto.values());
         return "produto/editar";
     }
 

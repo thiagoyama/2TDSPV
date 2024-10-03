@@ -29,6 +29,13 @@
             <input type="date" class="form-control" th:field="*{dataFabricacao}">
         </div>
         <div class="mb-3">
+            <label class="form-label">Status</label>
+            <select th:field="*{status}" class="form-control">
+                <option th:each="st:${status}"
+                        th:value="${st}" th:text="${st.label}"></option>
+            </select>
+        </div>
+        <div class="mb-3">
             <input type="checkbox" th:field="*{novo}">
             <label class="form-label">Novo</label>
         </div>
