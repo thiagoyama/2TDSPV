@@ -3,10 +3,12 @@ package br.com.fiap.mvc.controller;
 import br.com.fiap.mvc.model.Produto;
 import br.com.fiap.mvc.model.StatusProduto;
 import br.com.fiap.mvc.repository.ProdutoRepository;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -36,7 +38,11 @@ public class ProdutoController {
 
     @PostMapping("cadastrar")
     @Transactional
-    public String churros(Produto produto, RedirectAttributes redirectAttributes){
+    public String churros(@Valid Produto produto, BindingResult result, RedirectAttributes redirectAttributes, Model model){
+        if (result.hasErrors()) {
+            model.addAttribute("status", StatusProduto.values());
+            return "produto/cadastro"; //se tiver erro de validação, retorna para a página de cadastro
+        }
         produtoRepository.save(produto);
         redirectAttributes.addFlashAttribute("mensagem", "Produto cadastrado!");
         return "redirect:/produto/cadastrar";
@@ -56,7 +62,11 @@ public class ProdutoController {
     }
 
     @PostMapping("editar")
-    public String editar(Produto produto, RedirectAttributes redirectAttributes){
+    public String editar(@Valid Produto produto, BindingResult result, RedirectAttributes redirectAttributes, Model model){
+        if (result.hasErrors()) {
+            model.addAttribute("status", StatusProduto.values());
+            return "produto/editar"; //se tiver erro de validação, retorna para a página de cadastro
+        }
         produtoRepository.save(produto);
         redirectAttributes.addFlashAttribute("mensagem", "Produto atualizado");
         return "redirect:/produto/listar";

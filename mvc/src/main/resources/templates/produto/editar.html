@@ -10,30 +10,39 @@
 <div layout:fragment="conteudo">
     <h1>Editar produto:</h1>
     <form th:action="@{/produto/editar}" th:object="${produto}" method="post">
+        <div class="alert alert-danger" th:if="${#fields.hasErrors('*')}">
+            <p th:each="err : ${#fields.errors('*')}" th:text="${err}"></p>
+        </div>
         <input th:field="*{id}" type="hidden"/>
         <div class="mb-3">
             <label class="form-label">Nome</label>
             <input class="form-control" th:field="*{nome}" type="text" id="nome" placeholder="Informe o nome do Produto">
+            <p th:if="${#fields.hasErrors('nome')}" class="text text-danger" th:errors="*{nome}"></p>
         </div>
 
         <div class="mb-3">
             <label class="form-label">Valor</label>
             <input class="form-control" th:field="*{valor}" type="text" id="valor" placeholder="Informe o valor do Produto">
+            <p th:if="${#fields.hasErrors('valor')}" class="text text-danger" th:errors="*{valor}"></p>
         </div>
 
         <div class="mb-3">
             <label class="form-label">Descrição</label>
-            <input class="form-control" th:field="*{descricao}" type="text" id="descricao" placeholder="Informe uma descrição do Produto">
+            <textarea class="form-control" th:field="*{descricao}" id="descricao">
+            </textarea>
+            <p th:if="${#fields.hasErrors('descricao')}" class="text text-danger" th:errors="*{descricao}"></p>
         </div>
 
         <div class="mb-3">
             <label class="form-label">Data de Fabricação</label>
             <input class="form-control" th:field="*{dataFabricacao}" type="text" id="dataDeFabricacao" placeholder="Informe a data de fabricação do Produto">
+            <p th:if="${#fields.hasErrors('dataFabricacao')}" class="text text-danger" th:errors="*{dataFabricacao}"></p>
         </div>
 
         <div class="mb-3">
             <label class="form-label">Status</label>
             <select th:field="*{status}" class="form-control">
+                <option value="">Selecione</option>
                 <option th:each="st:${status}"
                         th:value="${st}" th:text="${st.label}"></option>
             </select>
