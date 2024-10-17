@@ -38,4 +38,8 @@ public class Produto {
 
     @Column(name="st_produto")
     private StatusProduto status;
+
+    @ManyToOne
+    @JoinColumn(name = "cd_categoria")
+    private Categoria categoria;
 }

@@ -49,6 +49,15 @@
         </div>
 
         <div class="mb-3">
+            <label class="form-label">Categoria</label>
+            <select th:field="*{categoria.id}" class="form-select">
+                <option value="">Selecione</option>
+                <option th:each="c:${categorias}"
+                        th:value="${c.id}" th:text="${c.nome}"></option>
+            </select>
+        </div>
+
+        <div class="mb-3">
             <label class="form-label">É novo?</label>
             <input th:field="*{novo}" type="checkbox" id="novo" placeholder="Informe se o Produto é novo">
         </div>

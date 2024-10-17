@@ -21,6 +21,7 @@
                 <th>Data Fabricação</th>
                 <th>Novo</th>
                 <th>Status</th>
+                <th>Categoria</th>
                 <th></th>
             </tr>
             <tr th:each="prod:${produtos}">
@@ -33,6 +34,7 @@
                 <td th:text="${#temporals.format(prod.dataFabricacao, 'dd/MM/yyyy')}"></td>
                 <td th:text="${prod.novo?'Novo':'Usado'}"></td>
                 <td th:text="${prod.status?.label}"></td>
+                <td th:text="${prod.categoria?.nome}"></td>
                 <th>
                     <a th:href="@{/produto/editar/}+${prod.id}"
                        class="btn btn-outline-primary">Editar</a>

@@ -2,6 +2,7 @@ package br.com.fiap.mvc.controller;
 
 import br.com.fiap.mvc.model.Produto;
 import br.com.fiap.mvc.model.StatusProduto;
+import br.com.fiap.mvc.repository.CategoriaRepository;
 import br.com.fiap.mvc.repository.ProdutoRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,9 @@ public class ProdutoController {
     @Autowired
     private ProdutoRepository produtoRepository;
 
+    @Autowired
+    private CategoriaRepository categoriaRepository;
+
     @PostMapping("remover")
     @Transactional
     public String remover(Long codigo, RedirectAttributes redirectAttributes) {
@@ -33,6 +37,7 @@ public class ProdutoController {
     @GetMapping("cadastrar")
     public String cadastrar(Produto produto, Model model){
         model.addAttribute("status", StatusProduto.values());
+        model.addAttribute("categorias", categoriaRepository.findAll());
         return "produto/cadastro";
     }
 
@@ -41,6 +46,7 @@ public class ProdutoController {
     public String churros(@Valid Produto produto, BindingResult result, RedirectAttributes redirectAttributes, Model model){
         if (result.hasErrors()) {
             model.addAttribute("status", StatusProduto.values());
+            model.addAttribute("categorias", categoriaRepository.findAll());
             return "produto/cadastro"; //se tiver erro de validação, retorna para a página de cadastro
         }
         produtoRepository.save(produto);
@@ -57,6 +63,7 @@ public class ProdutoController {
     @GetMapping("editar/{id}")
     public String editar(@PathVariable("id") Long id, Model model) {
         model.addAttribute("produto", produtoRepository.findById(id));
+        model.addAttribute("categorias", categoriaRepository.findAll());
         model.addAttribute("status", StatusProduto.values());
         return "produto/editar";
     }
@@ -65,6 +72,7 @@ public class ProdutoController {
     public String editar(@Valid Produto produto, BindingResult result, RedirectAttributes redirectAttributes, Model model){
         if (result.hasErrors()) {
             model.addAttribute("status", StatusProduto.values());
+            model.addAttribute("categorias", categoriaRepository.findAll());
             return "produto/editar"; //se tiver erro de validação, retorna para a página de cadastro
         }
         produtoRepository.save(produto);
