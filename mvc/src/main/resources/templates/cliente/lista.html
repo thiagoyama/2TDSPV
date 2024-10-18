@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">>
+<head>
+    <meta charset="UTF-8">
+    <title>Clientes</title>
+</head>
+<body>
+<div layout:fragment="conteudo">
+    <h1>Clientes</h1>
+    <table class="table">
+        <tr>
+            <th>Nome</th>
+            <th>CPF</th>
+            <th>Logradouro</th>
+            <th>Número</th>
+            <th>CEP</th>
+        </tr>
+        <tr th:each="cliente : ${clientes}">
+            <td th:text="${cliente.nome}"></td>
+            <td th:text="${cliente.cpf}"></td>
+            <td th:text="${cliente.endereco.logradouro}"></td>
+            <td th:text="${cliente.endereco.numero}"></td>
+            <td th:text="${cliente.endereco.cep}"></td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>
