@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter @Setter
@@ -28,9 +29,9 @@ public class Usuario {
     @JoinTable(name = "users_roles",
      joinColumns = @JoinColumn(name="user_id"),
     inverseJoinColumns = @JoinColumn(name="role_id") )
-    public List<Role> roles;
+    public Set<Role> roles;
 
-    public Usuario(String username, String password, List<Role> roles) {
+    public Usuario(String username, String password, Set<Role> roles) {
         this.username = username;
         this.password = password;
         this.roles = roles;
